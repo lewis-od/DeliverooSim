@@ -52,14 +52,14 @@ export class StreetViewComponent implements OnInit {
 
       console.log(restaurant.location.lat);
       const marker = new google.maps.Marker({
-        //position: new google.maps.LatLng(restaurant.location.lat, restaurant.location.lng),
-        position: new google.maps.LatLng(52.9531876, -1.1492799),
+        position: new google.maps.LatLng(restaurant.location.lat, restaurant.location.long),
+        //position: new google.maps.LatLng(52.9531876, -1.1492799),
         map: this.streetView,
         icon: restaurantMarkerIcon,
         // icon: 'https://chart.apis.google.com/chart?chst=d_map_pin_icon&chld=cafe|FFFF00',
         title: 'Cafe'
       });
-      console.log(marker.getPosition().lat());
+      console.log(marker.getPosition().lng());
     }
 
 
@@ -69,5 +69,9 @@ export class StreetViewComponent implements OnInit {
     console.log('init street view');
     const notts = {lat: 52.9531876, lng: -1.1492799};
     this.streetView = new google.maps.StreetViewPanorama(this.streetViewRef.nativeElement, { position: notts });
+
+    this.streetView.addListener('position_changed', function() {
+      console.log('position changed');
+    });
   }
 }

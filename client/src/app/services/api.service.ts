@@ -9,6 +9,8 @@ import {environment} from '../../environments/environment';
 })
 export class ApiService {
 
+  notts = {lat: 52.9531876, lng: -1.1492799};
+
   constructor(private http: HttpClient) { }
 
   public getRestaurant(location: MapLocation): Restaurant {
@@ -16,8 +18,8 @@ export class ApiService {
     return <Restaurant>{
       image: 'https://maps.googleapis.com/maps/api/place/photo?key=AIzaSyCzR4NI8Bfo-Vbj_X5wOK7uBhxAyKPwtZ4&photoreference=CmRaAAAAOB58PcgLuKw_824yU6GeyM0LERQ0DR59FXmDXGGkRMUYJOev_WXbHszCIiHl-_KPlZrUvVG8p3Mm8vNkxGwA9ptYRO8HJl7-Ld0rWYa8rpOkFc449uxcBojAJlg_v-ZoEhAsbN0YpLd_Gay_yIusv2IfGhSUycu5-DI6PrzxAZP9fRziwAdbXw&maxwidth=250',
       location: {
-        lat: 52.9564424,
-        lng: -1.153329
+        lat: this.notts.lat,
+        long: this.notts.lng
       },
       name: 'Demo Restaurant'
     };
@@ -25,7 +27,7 @@ export class ApiService {
 
   public getResidence(location: MapLocation): Residence {
     return <Residence>{
-      
+
     };
   }
 
