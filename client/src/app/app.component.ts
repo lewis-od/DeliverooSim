@@ -27,6 +27,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   public async initGame() {
-    await this.gameService.initGame({lat: 52.954784,  long: -1.158109});
+    await this.gameService.initGame({lat: 52.954784,  lng: -1.158109});
   }
 }

@@ -17,6 +17,9 @@ export class StreetViewComponent implements OnInit {
   public streetView: google.maps.StreetViewPanorama;
   public currentDestination: Destination;
 
+  private WITHIN_RANGE = 20;
+  public withinRangeOfCollection = false;
+
   constructor(private gameService: GameService) { }
 
   ngOnInit() {
@@ -55,14 +58,13 @@ export class StreetViewComponent implements OnInit {
 
       console.log(restaurant.location.lat);
       const marker = new google.maps.Marker({
-        position: new google.maps.LatLng(restaurant.location.lat, restaurant.location.long),
+        position: new google.maps.LatLng(restaurant.location.lat, restaurant.location.lng),
         //position: new google.maps.LatLng(52.9531876, -1.1492799),
         map: this.streetView,
         icon: restaurantMarkerIcon,
         // icon: 'https://chart.apis.google.com/chart?chst=d_map_pin_icon&chld=cafe|FFFF00',
         title: 'Cafe'
       });
-      console.log(marker.getPosition().lng());
     }
 
 
@@ -95,14 +97,15 @@ export class StreetViewComponent implements OnInit {
 
     const location = <MapLocation>{
       lat: this.streetView.getPosition().lat(),
-      long: this.streetView.getPosition().lng()
+      lng: this.streetView.getPosition().lng()
     };
-    //const inRange = this.isWithinRange(location, )
+    this.withinRangeOfCollection = this.isWithinRange(location, destinationLocation, this.WITHIN_RANGE);
+    this.gameService.canCollect$.next(this.withinRangeOfCollection);
   }
 
   private isWithinRange(pos1: MapLocation, pos2: MapLocation, distance: number): boolean {
     let dLat = pos1.lat - pos2.lat;
-    let dLong = pos1.long - pos2.long;
+    let dLong = pos1.lng - pos2.lng;
 
     dLat = (dLat / 90.0) * Math.PI;
     dLong = (dLong / 180.0) * Math.PI;

@@ -14,6 +14,7 @@ export class GameService {
   public destination$ = new Subject<Destination>();
   public gameMode$ = new BehaviorSubject<GameMode>(GameMode.NONE);
   public init$ = new BehaviorSubject<boolean>(false);
+  public canCollect$ = new BehaviorSubject<boolean>(false);
 
   constructor(private apiService: ApiService) {
 
@@ -34,6 +35,14 @@ export class GameService {
     }
     console.log('next destination');
     this.destination$.next(destination);
+  }
+
+  public async collectOrder() {
+    console.log('collect order');
+    this.gameMode$.next(GameMode.DELIVER);
+    // get residence
+
+
   }
 }
 

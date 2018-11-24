@@ -11,15 +11,22 @@ export class ControlsComponent implements OnInit {
 
   public gameModeEnum = GameMode;
   public gameMode: GameMode;
+  public canCollect: boolean;
 
   constructor(private gameService: GameService) { }
 
   ngOnInit() {
     this.gameService.gameMode$.subscribe(mode => this.gameMode = mode);
+
+    this.gameService.canCollect$.subscribe(canCollect => this.canCollect = canCollect);
   }
 
   public async onFindOrderClick(event: any) {
     await this.gameService.findOrder();
+  }
+
+  public async onCollectOrderClick(event: any) {
+    await this.gameService.collectOrder();
   }
 
 }
