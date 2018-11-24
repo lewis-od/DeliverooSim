@@ -56,10 +56,8 @@ export class StreetViewComponent implements OnInit {
         anchor: new google.maps.Point(128, 128),
       };
 
-      console.log(restaurant.location.lat);
       const marker = new google.maps.Marker({
         position: new google.maps.LatLng(restaurant.location.lat, restaurant.location.lng),
-        //position: new google.maps.LatLng(52.9531876, -1.1492799),
         map: this.streetView,
         icon: restaurantMarkerIcon,
         // icon: 'https://chart.apis.google.com/chart?chst=d_map_pin_icon&chld=cafe|FFFF00',

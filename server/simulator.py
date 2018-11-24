@@ -15,14 +15,14 @@ def index():
 @bp.route('/restaurant')
 def restaurant():
     latitude = request.args.get('lat')
-    longitude = request.args.get('long')
+    longitude = request.args.get('lng')
 
     location = "{},{}".format(latitude, longitude)
 
     maps = googlemaps.Client(key=maps_key)
     response = maps.places('restaurant', location=location)
     if response['status'] != "OK":
-        raise Exception("Google maps error")
+        raise Exception("Google maps error: status {}".format(response['status']))
 
     results = response['results']
     restaurant_dict = random.choice(results)
@@ -39,7 +39,7 @@ def restaurant():
 
     response = maps.place(restaurant_id)
     if response['status'] != 'OK':
-        raise Exception("Google maps error")
+        raise Exception("Google maps error: status {}".format(response['status']))
 
     restaurant_dict = response['result']
 
@@ -72,7 +72,7 @@ def restaurant():
 @bp.route('/destination')
 def destination():
     lat = request.args.get('lat')
-    long = request.args.get('long')
+    long = request.args.get('lng')
 
     r = 3950.0 # Radius of Earth in miles
     d = 1.0 # Max distance from restaurant
@@ -103,4 +103,4 @@ def destination():
         response = maps.reverse_geocode(location_str)
         address = response[0]['formatted_address']
 
-    return jsonify({'lat': lat, 'long': long, 'address': address})
+    return jsonify({'lat': lat, 'lng': long, 'address': address})
