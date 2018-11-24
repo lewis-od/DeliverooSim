@@ -14,15 +14,11 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   public getRestaurant(location: MapLocation): Restaurant {
-    const response = this.get<Restaurant>('/restaurant', location).toPromise();
-    console.log(response);
-    return response;
+    return response = this.get<Restaurant>('/restaurant', location).toPromise();
   }
 
   public getResidence(location: MapLocation): Residence {
-    return <Residence>{
-
-    };
+    return response = this.get<Residence>('/destination', location).toPromise();
   }
 
   private get<T>(endpoint: string, queryParams: any): Observable<any> {
