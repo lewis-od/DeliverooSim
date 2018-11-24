@@ -15,3 +15,4 @@ interface Residence {
   location: MapLocation;
   address: string;
 }
+

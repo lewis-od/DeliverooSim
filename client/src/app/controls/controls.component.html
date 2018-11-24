@@ -1,3 +1,3 @@
-<button type="button" class="btn btn-primary" (click)="onFindOrderClick($event)">Find an order...</button>
-<button type="button" class="btn btn-warning">Collect Order</button>
-<button type="button" class="btn btn-success">Deliver Order</button>
+<button type="button" class="btn btn-primary mr-2" (click)="onFindOrderClick($event)" [disabled]="gameMode !== gameModeEnum.NONE">Find an order...</button>
+<button type="button" class="btn btn-warning mr-2" [disabled]="gameMode !== gameModeEnum.PICKUP">Collect Order</button>
+<button type="button" class="btn btn-success" [disabled]="gameMode !== gameModeEnum.DELIVER">Deliver Order</button>

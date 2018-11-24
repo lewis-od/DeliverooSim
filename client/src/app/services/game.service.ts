@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {BehaviorSubject, Subject} from 'rxjs';
 import {ApiService} from './api.service';
 import {GameMode} from '../enums/gamemode.enum';
@@ -12,7 +12,7 @@ export class GameService {
 
   // Observables
   public destination$ = new Subject<Destination>();
-  public gameMode$ = new BehaviorSubject<GameMode>(null);
+  public gameMode$ = new BehaviorSubject<GameMode>(GameMode.NONE);
   public init$ = new BehaviorSubject<boolean>(false);
 
   constructor(private apiService: ApiService) {
@@ -36,3 +36,4 @@ export class GameService {
     this.destination$.next(destination);
   }
 }
+
