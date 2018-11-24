@@ -75,7 +75,23 @@ export class StreetViewComponent implements OnInit {
     });
   }
 
-  private isWithinRange(pos1: MapLocation, pos2: MapLocation): boolean {
+  private isWithinRange(pos1: MapLocation, pos2: MapLocation, distance: Number): boolean {
+    let dLat = pos1.lat - pos2.lat;
+    let dLong = pos1.long - pos2.long;
+
+    dLat = (dLat / 90.0) * Math.PI;
+    dLong = (dLong / 180.0) * Math.PI;
+
+    let r = 6371*1000;
+
+    let dx = r * Math.sin(dLat) * Math.cos(dLong);
+    let dy = r * Math.sin(dLat) * Math.sin(dLong);
+
+    let dr = Math.sqrt(dx*dx + dy*dy);
+    if dr < distance {
+      return true;
+    }
+
     return false;
   }
 }
