@@ -23,6 +23,12 @@ export class ApiService {
     };
   }
 
+  public getResidence(location: MapLocation): Residence {
+    return <Residence>{
+      
+    };
+  }
+
   private get<T>(endpoint: string, queryParams: any): Observable<any> {
     console.log('GET: ' + endpoint);
     const params = new HttpParams();
