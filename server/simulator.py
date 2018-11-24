@@ -10,8 +10,13 @@ bp = Blueprint('simulator', __name__)
 def index():
     return "Hello, world"
 
-@bp.route('/restaurant/<string:location>')
-def restaurant(location):
+@bp.route('/restaurant')
+def restaurant():
+    latitude = request.args.get('lat')
+    longitude = request.args.get('long')
+
+    location = "{},{}".format(latitude, longitude)
+
     maps = googlemaps.Client(key=maps_key)
     response = maps.places('restaurant', location=location)
     if response['status'] != "OK":
