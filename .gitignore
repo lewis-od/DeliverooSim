@@ -2,3 +2,4 @@
 server/venv
 server/config.py
 server/__pycache__
+instance/
