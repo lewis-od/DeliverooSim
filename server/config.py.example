@@ -1,1 +1,2 @@
-api_key = 'Your API key here'
+maps_key = 'Your google maps API key here'
+clarifai_key = 'Your Clarifai API key here'
