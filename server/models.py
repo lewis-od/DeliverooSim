@@ -2,9 +2,9 @@ import sqlite3
 from server.db import get_db
 
 class Restaurant(object):
-    def __init__(self, place_id="", img_url="", id=0):
+    def __init__(self, place_id="", image_url="", id=0):
         self.place_id = place_id
-        self.img_url = img_url
+        self.image_url = image_url
         self.id = id
 
     def create(self):
@@ -12,7 +12,7 @@ class Restaurant(object):
             raise Exception("Object already exists in db, use save() instead")
         query_str = "INSERT INTO restaurants (place_id, image_url) VALUES (?, ?)"
         db = get_db()
-        c = db.execute(query_str, (self.place_id, self.img_url,))
+        c = db.execute(query_str, (self.place_id, self.image_url,))
         db.commit()
         self.id = c.lastrowid
         return self
@@ -23,7 +23,7 @@ class Restaurant(object):
 
         query_str = "UPDATE restaurants SET place_id = ?, image_url = ? WHERE id = ?"
         db = get_db()
-        c = db.execute(query_str, (self.place_id, self.img_url, self.id))
+        c = db.execute(query_str, (self.place_id, self.image_url, self.id))
         db.commit()
         return self
 
@@ -34,7 +34,7 @@ class Restaurant(object):
         if res is None:
             return None
         res = dict(res)
-        obj = Cls(place_id=res['place_id'], img_url=res['image_url'], id=res['id'])
+        obj = Cls(place_id=res['place_id'], image_url=res['image_url'], id=res['id'])
         return obj
 
     @classmethod
@@ -44,5 +44,13 @@ class Restaurant(object):
         if res is None:
             return None
         res = dict(res)
-        obj = Cls(place_id=res['place_id'], img_url=res['image_url'], id=res['id'])
+        obj = Cls(place_id=res['place_id'], image_url=res['image_url'], id=res['id'])
         return obj
+
+    @classmethod
+    def get_all(Cls):
+        query = "SELECT * FROM restaurants"
+        res = get_db().execute(query).fetchall()
+        res = [dict(r) for r in res]
+        objects = [Cls(**params) for params in res]
+        return objects

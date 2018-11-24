@@ -1,5 +1,6 @@
 from flask import Blueprint, g, request, jsonify
 from server.config import maps_key, clarifai_key
+from server.models import Restaurant
 from clarifai.rest import ClarifaiApp
 import googlemaps
 import random
@@ -23,16 +24,26 @@ def restaurant():
         raise Exception("Google maps error")
 
     results = response['results']
-    restaurant_id = random.choice(results)['place_id']
+    restaurant_dict = random.choice(results)
+    restaurant_id = restaurant_dict['place_id']
+
+    restaurant = Restaurant.get_by_place_id(restaurant_id)
+    if restaurant is not None:
+        res_dict = {
+            'location': restaurant_dict['geometry']['location'],
+            'name': restaurant_dict['name'],
+            'image': restaurant.image_url
+        }
+        return jsonify(res_dict)
 
     response = maps.place(restaurant_id)
     if response['status'] != 'OK':
         raise Exception("Google maps error")
 
-    restaurant = response['result']
+    restaurant_dict = response['result']
 
     food_url = "No image found."
-    for photo_info in restaurant['photos']:
+    for photo_info in restaurant_dict['photos']:
         reference = photo_info['photo_reference']
         img_url = ("https://maps.googleapis.com/maps/api/place/photo?key={}"
             "&photoreference={}&maxwidth=250").format(maps_key, reference)
@@ -48,10 +59,11 @@ def restaurant():
         if 'food' in keywords:
             food_url = img_url
             break
+    restaurant = Restaurant(place_id=restaurant_id, image_url=food_url).create()
 
     res_dict = {
-        'location': restaurant['geometry']['location'],
-        'name': restaurant['name'],
+        'location': restaurant_dict['geometry']['location'],
+        'name': restaurant_dict['name'],
         'image': food_url
     }
     return jsonify(res_dict)
