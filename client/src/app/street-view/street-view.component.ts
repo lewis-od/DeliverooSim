@@ -74,4 +74,8 @@ export class StreetViewComponent implements OnInit {
       console.log('position changed');
     });
   }
+
+  private isWithinRange(pos1: MapLocation, pos2: MapLocation): boolean {
+    return false;
+  }
 }
