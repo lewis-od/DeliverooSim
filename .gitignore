@@ -3,3 +3,4 @@ server/venv
 server/__pycache__
 server/config.py
 instance
+client/package-lock.json
