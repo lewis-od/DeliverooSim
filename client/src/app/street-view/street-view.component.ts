@@ -15,6 +15,7 @@ export class StreetViewComponent implements OnInit {
 
   @ViewChild('streetView') streetViewRef: ElementRef;
   public streetView: google.maps.StreetViewPanorama;
+  public currentDestination: Destination;
 
   constructor(private gameService: GameService) { }
 
@@ -36,6 +37,8 @@ export class StreetViewComponent implements OnInit {
     if (!this.streetView) {
       this.initStreetView();
     }
+
+    this.currentDestination = destination;
 
     if (destination.type === 'Restaurant') {
       // set marker
@@ -70,12 +73,34 @@ export class StreetViewComponent implements OnInit {
     const notts = {lat: 52.9531876, lng: -1.1492799};
     this.streetView = new google.maps.StreetViewPanorama(this.streetViewRef.nativeElement, { position: notts });
 
-    this.streetView.addListener('position_changed', function() {
-      console.log('position changed');
+    this.streetView.addListener('position_changed', () => {
+      this.handlePositionChanged();
     });
   }
 
-  private isWithinRange(pos1: MapLocation, pos2: MapLocation): boolean {
+  private handlePositionChanged() {
+
+    if (!this.currentDestination) {
+      return;
+    }
+
+    let destinationLocation: MapLocation;
+    if (this.currentDestination.restaurant) {
+      destinationLocation = this.currentDestination.restaurant.location;
+    } else if (this.currentDestination.residence) {
+      destinationLocation = this.currentDestination.residence.location;
+    } else {
+      return;
+    }
+
+    const location = <MapLocation>{
+      lat: this.streetView.getPosition().lat(),
+      long: this.streetView.getPosition().lng()
+    };
+    const inRange = this.isWithinRange(location, )
+  }
+
+  private isWithinRange(pos1: MapLocation, pos2: MapLocation, distance: number): boolean {
     return false;
   }
 }
