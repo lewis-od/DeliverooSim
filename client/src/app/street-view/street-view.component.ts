@@ -78,7 +78,6 @@ export class StreetViewComponent implements OnInit {
     });
   }
 
-<<<<<<< HEAD
   private handlePositionChanged() {
 
     if (!this.currentDestination) {
@@ -98,7 +97,7 @@ export class StreetViewComponent implements OnInit {
       lat: this.streetView.getPosition().lat(),
       long: this.streetView.getPosition().lng()
     };
-    const inRange = this.isWithinRange(location, )
+    //const inRange = this.isWithinRange(location, )
   }
 
   private isWithinRange(pos1: MapLocation, pos2: MapLocation, distance: number): boolean {
