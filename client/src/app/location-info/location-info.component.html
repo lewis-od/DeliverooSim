@@ -1,0 +1,10 @@
+<div>
+    <div *ngIf="destination?.restaurant">
+      <p><b>Restaurant:</b> {{destination.restaurant.name}}</p>
+      <p>You are delivering:</p>
+      <img src="{{destination.restaurant.image}}" />
+    </div>
+    <div *ngIf="destination?.residence">
+      <p><b>Address:</b> {{destination.residence.address}}</p>
+    </div>
+</div>

@@ -6,13 +6,15 @@ import { StreetViewComponent } from './street-view/street-view.component';
 import {HttpClientModule} from '@angular/common/http';
 import { GameComponent } from './game/game.component';
 import { ControlsComponent } from './controls/controls.component';
+import { LocationInfoComponent } from './location-info/location-info.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     StreetViewComponent,
     GameComponent,
-    ControlsComponent
+    ControlsComponent,
+    LocationInfoComponent
   ],
   imports: [
     BrowserModule,
