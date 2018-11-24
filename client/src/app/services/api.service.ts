@@ -11,15 +11,15 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  public getRestaurant(location: MapLocation) {
+  public getRestaurant(location: MapLocation): Restaurant {
     // return this.get<Restaurant>('/restaurant', location).ToPromise();
     return <Restaurant>{
-      image: 'https://maps.googleapis.com/maps/api/place/photo?key=AIzaSyCzR4NI8Bfo-Vbj_X5wOK7uBhxAyKPwtZ4&photoreference=CmRZAAAAZZr85QQqCSdgzusJeTce5lVlY2SgrMA7rSWG6vT-F86K36yJykTXomAwU5cXhGSGFZ4FoA7Mv3FtMv2LElm5Ky5-adUzZ1acnTadekCRXg9kAdwLaXHT1ZHU58SyQnDMEhDUiN1uGeIApQUlmcXtG5z9GhSkkEbVi-x3Ol8UGxJ6ePyeRTgqQA&maxwidth=250',
+      image: 'https://maps.googleapis.com/maps/api/place/photo?key=AIzaSyCzR4NI8Bfo-Vbj_X5wOK7uBhxAyKPwtZ4&photoreference=CmRaAAAAOB58PcgLuKw_824yU6GeyM0LERQ0DR59FXmDXGGkRMUYJOev_WXbHszCIiHl-_KPlZrUvVG8p3Mm8vNkxGwA9ptYRO8HJl7-Ld0rWYa8rpOkFc449uxcBojAJlg_v-ZoEhAsbN0YpLd_Gay_yIusv2IfGhSUycu5-DI6PrzxAZP9fRziwAdbXw&maxwidth=250',
       location: {
-        lat: 42.1103615,
-        lng: -4.6392828
+        lat: 52.9564424,
+        lng: -1.153329
       },
-      name: 'Restaurante TresCulturas'
+      name: 'Demo Restaurant'
     };
   }
 

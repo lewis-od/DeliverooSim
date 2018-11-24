@@ -13,6 +13,7 @@ export class GameService {
   // Observables
   public destination$ = new Subject<Destination>();
   public gameMode$ = new BehaviorSubject<GameMode>(null);
+  public init$ = new BehaviorSubject<boolean>(false);
 
   constructor(private apiService: ApiService) {
 
@@ -20,11 +21,18 @@ export class GameService {
 
   public async initGame(seed: MapLocation) {
     this.seedLocation = seed;
-    console.log('gm:');
-    console.log('gm:' + GameMode.PICKUP);
-    this.gameMode$.next(GameMode.PICKUP);
+    this.init$.next(true);
+  }
 
-    const restaurant = await this.apiService.getRestaurant(seed);
-    this.destination$.next(restaurant);
+  public async findOrder() {
+    console.log('find order');
+    this.gameMode$.next(GameMode.PICKUP);
+    const restaurant = await this.apiService.getRestaurant(this.seedLocation);
+    const destination = <Destination> {
+      type: 'Restaurant',
+      restaurant: restaurant
+    }
+    console.log('next destination');
+    this.destination$.next(destination);
   }
 }
