@@ -1,2 +1,5 @@
 .DS_Store
 server/venv
+server/__pycache__
+server/config.py
+instance
