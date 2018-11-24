@@ -4,6 +4,7 @@ from server.models import Restaurant
 from clarifai.rest import ClarifaiApp
 import googlemaps
 import random
+import math
 
 bp = Blueprint('simulator', __name__)
 
@@ -67,3 +68,39 @@ def restaurant():
         'image': food_url
     }
     return jsonify(res_dict)
+
+@bp.route('/destination')
+def destination():
+    lat = request.args.get('lat')
+    long = request.args.get('long')
+
+    r = 3950.0 # Radius of Earth in miles
+    d = 1.0 # Max distance from restaurant
+
+    address = "Unnamed Road"
+    while "Unnamed Road" in address:
+        # Convert lat/long to radians
+        theta = (float(lat) / 90) * math.pi
+        phi = (float(long) / 180) * math.pi
+
+        # One mile in lat/long angles
+        one_mile = d / r
+
+        c1 = (random.random() * 2) - 1
+        c2 = (random.random() * 2) - 1
+
+        dtheta = c1 * one_mile
+        dphi = c2 * one_mile
+
+        phi_new = phi + dphi
+        theta_new = theta + dtheta
+
+        lat_new = (theta_new / math.pi) * 90
+        long_new = (phi_new / math.pi) * 180
+
+        location_str = "{},{}".format(lat_new, long_new)
+        maps = googlemaps.Client(key=maps_key)
+        response = maps.reverse_geocode(location_str)
+        address = response[0]['formatted_address']
+
+    return jsonify({'lat': lat, 'long': long, 'address': address})
