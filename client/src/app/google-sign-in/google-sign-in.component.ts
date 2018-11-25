@@ -28,13 +28,11 @@ export class GoogleSignInComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    console.log("After view init");
-    console.log(this.saveForm);
     this.saveForm.nativeElement.addEventListener("submit", () => {
       let formData = new FormData();
       formData.append('user_id', this.signedInAs);
       formData.append('score', this.currentScore);
-      this.apiService.post('/save');
+      this.apiService.post('/save', formData);
     }, false);
   }
 

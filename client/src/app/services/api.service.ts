@@ -32,7 +32,9 @@ export class ApiService {
   }
 
   private post(endpoint: string, formData: FormData): Observable<any> {
-    this.http.post(this.getUrl(endpoint), formData)
+    this.http.post(this.getUrl(endpoint), formData).subscribe((res) => {
+      console.log(res);
+    });
   }
 
   private getUrl(endpoint: string) {
