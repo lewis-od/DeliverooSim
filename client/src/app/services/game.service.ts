@@ -15,6 +15,7 @@ export class GameService {
   public gameMode$ = new BehaviorSubject<GameMode>(GameMode.NONE);
   public init$ = new BehaviorSubject<boolean>(false);
   public canCollect$ = new BehaviorSubject<boolean>(false);
+  public location$ = new BehaviorSubject<MapLocation>(null);
 
   constructor(private apiService: ApiService) {
 
@@ -56,7 +57,9 @@ export class GameService {
       residence: residence
     }
     this.destination$.next(destination);
+  }
 
-
+  public updateLocation(location: MapLocation) {
+    this.location$.next(location);
   }
 }

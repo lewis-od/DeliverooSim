@@ -20,7 +20,7 @@ export class LocationInfoComponent implements OnInit {
         this.isLoading = false;
         this.destination = destination;
       }
-    })
+    });
   }
 
 }

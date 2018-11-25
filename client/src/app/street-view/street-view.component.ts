@@ -106,7 +106,6 @@ export class StreetViewComponent implements OnInit {
   }
 
   private handlePositionChanged() {
-
     if (!this.currentDestination) {
       return;
     }
@@ -124,6 +123,8 @@ export class StreetViewComponent implements OnInit {
       lat: this.streetView.getPosition().lat(),
       lng: this.streetView.getPosition().lng()
     };
+
+    this.gameService.updateLocation(location);
 
     this.withinRangeOfCollection = this.isWithinRange(location, destinationLocation, this.WITHIN_RANGE);
     this.gameService.canCollect$.next(this.withinRangeOfCollection);
