@@ -1,7 +1,14 @@
 DROP TABLE IF EXISTS restaurants;
+DROP TABLE IF EXISTS scores;
 
 CREATE TABLE restaurants (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     place_id TEXT NOT NULL,
     image_url TEXT NOT NULL
-)
+);
+
+CREATE TABLE scores (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id TEXT NOT NULL,
+  score INTEGER NOT NULL
+);

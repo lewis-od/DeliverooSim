@@ -1,6 +1,6 @@
 from flask import Blueprint, g, request, jsonify
 from server.config import maps_key, clarifai_key
-from server.models import Restaurant
+from server.models import Restaurant, User
 from clarifai.rest import ClarifaiApp
 import googlemaps
 import random
@@ -106,3 +106,19 @@ def destination():
         address = response[0]['formatted_address']
 
     return jsonify({'location': {'lat': lat_new, 'lng': long_new}, 'address': address})
+    
+@bp.route('/save', methods=('POST',))
+def save():
+    try:
+        username = request.form['user_id']
+        score = int(request.form['score'])
+
+        user = User.get_by_user_id(username)
+        if user is None:
+            user = User(user_id=username)
+            user.create()
+        user.score = score
+        user.save()
+        return jsonify({"status": "OK"})
+    except:
+        return jsonify({"status": "ERROR"})
