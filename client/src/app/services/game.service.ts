@@ -61,6 +61,7 @@ export class GameService {
       residence: residence
     }
     this.destination$.next(destination);
+    this.reset();
   }
 
   public async deliverOrder() {
@@ -69,12 +70,14 @@ export class GameService {
     this.destination$.next(<Destination>{ });
     const score = this.score$.getValue() + 1;
     this.score$.next(score);
+    this.reset();
   }
 
   public async cancelOrder() {
     console.log('cancel order');
     this.gameMode$.next(GameMode.NONE);
     this.destination$.next(<Destination>{ });
+    this.reset();
   }
 
   public async cheat() {
@@ -83,5 +86,10 @@ export class GameService {
 
   public updateLocation(location: MapLocation) {
     this.location$.next(location);
+  }
+
+  private reset() {
+    this.canDeliver$.next(false);
+    this.canCollect$.next(false);
   }
 }
