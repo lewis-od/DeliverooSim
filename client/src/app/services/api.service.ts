@@ -31,6 +31,10 @@ export class ApiService {
       .pipe(catchError(this.handleError));
   }
 
+  private post(endpoint: string, formData: FormData): Observable<any> {
+    this.http.post(this.getUrl(endpoint), formData)
+  }
+
   private getUrl(endpoint: string) {
     return environment.baseApiUrl + endpoint;
   }

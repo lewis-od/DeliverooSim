@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import {GameService} from '../services/game.service';
+import {ApiService} from '../services/api.service';
 
 @Component({
   selector: 'app-google-sign-in',
@@ -8,9 +9,11 @@ import {GameService} from '../services/game.service';
 })
 export class GoogleSignInComponent implements OnInit {
 
+  @ViewChild("saveForm") saveForm: ElementRef;
   public signedInAs: string = null;
+  public currentScore: number = 0;
 
-  constructor(private gameService: GameService) { }
+  constructor(private gameService: GameService, private apiService: ApiService) { }
 
   ngOnInit() {
     this.gameService.googleSignInLoaded$.subscribe(loaded => {
@@ -19,6 +22,20 @@ export class GoogleSignInComponent implements OnInit {
       }
     });
 
+    this.gameService.score$.subscribe(score => {
+      this.currentScore = score;
+    });
+  }
+
+  ngAfterViewInit() {
+    console.log("After view init");
+    console.log(this.saveForm);
+    this.saveForm.nativeElement.addEventListener("submit", () => {
+      let formData = new FormData();
+      formData.append('user_id', this.signedInAs);
+      formData.append('score', this.currentScore);
+      this.apiService.post('/save');
+    }, false);
   }
 
   public onSuccess(googleUser) {
