@@ -35,7 +35,7 @@ export class GoogleSignInComponent implements OnInit {
     console.log(error);
   }
   public renderButton() {
-    gapi.signin2.render('my-signin2', {
+    (<any>gapi).signin2.render('my-signin2', {
       'scope': 'profile email',
       'width': 240,
       'height': 50,

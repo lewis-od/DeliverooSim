@@ -36,4 +36,12 @@ export class ControlsComponent implements OnInit {
     await this.gameService.deliverOrder();
   }
 
+  public async onCancelClick(event: any) {
+    await this.gameService.cancelOrder();
+  }
+
+  public async onCheatClick(event: any) {
+    await this.gameService.cheat();
+  }
+
 }

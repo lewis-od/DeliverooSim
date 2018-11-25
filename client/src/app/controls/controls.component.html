@@ -1,3 +1,5 @@
 <button type="button" class="btn btn-primary mr-2" (click)="onFindOrderClick($event)" [disabled]="gameMode !== gameModeEnum.NONE">Find an order...</button>
 <button type="button" class="btn btn-warning mr-2" (click)="onCollectOrderClick($event)" [disabled]="gameMode !== gameModeEnum.PICKUP || !canCollect">Collect Order</button>
 <button type="button" class="btn btn-success" (click)="onDeliverOrderClick($event)" [disabled]="gameMode !== gameModeEnum.DELIVER || !canDeliver">Deliver Order</button>
+<button type="button" class="btn btn-dark" (click)="onCancelClick($event)">Cancel Order</button>
+<button type="button" class="btn btn-danger" (click)="onCheatClick($event)">Cheat</button>

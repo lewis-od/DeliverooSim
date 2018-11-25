@@ -18,6 +18,7 @@ export class GameService {
   public canDeliver$ = new BehaviorSubject<boolean>(false);
   public location$ = new BehaviorSubject<MapLocation>(null);
   public score$ = new BehaviorSubject<number>(0);
+  public cheat$ = new Subject<void>();
   public googleSignInLoaded$ = new BehaviorSubject<boolean>(false);
 
   constructor(private apiService: ApiService) {
@@ -68,6 +69,16 @@ export class GameService {
     this.destination$.next(<Destination>{ });
     const score = this.score$.getValue() + 1;
     this.score$.next(score);
+  }
+
+  public async cancelOrder() {
+    console.log('cancel order');
+    this.gameMode$.next(GameMode.NONE);
+    this.destination$.next(<Destination>{ });
+  }
+
+  public async cheat() {
+    this.cheat$.next();
   }
 
   public updateLocation(location: MapLocation) {

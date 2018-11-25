@@ -37,6 +37,14 @@ export class StreetViewComponent implements OnInit {
         this.initStreetView();
       }
     });
+
+    this.gameService.cheat$.subscribe(() => {
+      if (this.currentDestination) {
+        if (this.currentDestination.restaurant) {
+
+        }
+      }
+    })
   }
 
   // Set destination marker of street view
