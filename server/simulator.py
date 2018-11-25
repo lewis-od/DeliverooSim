@@ -105,4 +105,4 @@ def destination():
         response = maps.reverse_geocode(location_str)
         address = response[0]['formatted_address']
 
-    return jsonify({'lat': lat, 'lng': long, 'address': address})
+    return jsonify({'location': {'lat': lat_new, 'lng': long_new}, 'address': address})

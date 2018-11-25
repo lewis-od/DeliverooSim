@@ -17,8 +17,10 @@ export class ApiService {
     return this.get<Restaurant>('/restaurant', location).toPromise();
   }
 
-  public getResidence(location: MapLocation): Promise<Residence> {
-    return this.get<Residence>('/destination', location).toPromise();
+  public async getResidence(location: MapLocation): Promise<Residence> {
+    const response = await this.get<Residence>('/destination', location).toPromise();
+    console.log(response);
+    return response;
   }
 
   private get<T>(endpoint: string, queryParams: any): Observable<any> {
