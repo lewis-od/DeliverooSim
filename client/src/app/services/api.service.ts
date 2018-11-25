@@ -23,6 +23,11 @@ export class ApiService {
     return response;
   }
 
+  public async getLeaderboard(): Promise<User[]> {
+    const response = await this.get<User[]>('/leaderboard', {}).toPromise();
+    return response;
+  }
+
   private get<T>(endpoint: string, queryParams: any): Observable<any> {
     console.log('GET: ' + endpoint);
     const params = new HttpParams();
