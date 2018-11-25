@@ -9,11 +9,17 @@ import {GameService} from '../services/game.service';
 export class LocationInfoComponent implements OnInit {
 
   public destination: Destination;
+  public isLoading = false;
   constructor(private gameService: GameService) { }
 
   ngOnInit() {
     this.gameService.destination$.subscribe(destination => {
-      this.destination = destination;
+      if (Object.keys(destination).length === 0) {
+        this.isLoading = true;
+      } else {
+        this.isLoading = false;
+        this.destination = destination;
+      }
     })
   }
 
