@@ -43,7 +43,7 @@ def restaurant():
 
     restaurant_dict = response['result']
 
-    food_url = "No image found."
+    food_url = None
     for photo_info in restaurant_dict['photos']:
         reference = photo_info['photo_reference']
         img_url = ("https://maps.googleapis.com/maps/api/place/photo?key={}"
@@ -60,6 +60,8 @@ def restaurant():
         if 'food' in keywords:
             food_url = img_url
             break
+    if food_url is None:
+        food_url = "https://thumbs.dreamstime.com/z/man-eating-food-4703099.jpg"
     restaurant = Restaurant(place_id=restaurant_id, image_url=food_url).create()
 
     res_dict = {

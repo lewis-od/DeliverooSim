@@ -2,7 +2,7 @@
     <div *ngIf="destination?.restaurant">
       <p><b>Restaurant:</b> {{destination.restaurant.name}}</p>
       <p>You are delivering:</p>
-      <img src="{{destination.restaurant.image}}" />
+      <img src="{{destination.restaurant.image}}" style="max-width: 250px;" />
     </div>
     <div *ngIf="destination?.residence">
       <p><b>Address:</b> {{destination.residence.address}}</p>
