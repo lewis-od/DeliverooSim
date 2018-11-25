@@ -17,8 +17,9 @@ export class StreetViewComponent implements OnInit {
   public streetView: google.maps.StreetViewPanorama;
   public currentDestination: Destination;
 
-  private WITHIN_RANGE = 20;
+  private WITHIN_RANGE = 200;
   public withinRangeOfCollection = false;
+  public withinRangeOfDelivery = false;
   public marker: any;
 
   constructor(private gameService: GameService) { }
@@ -107,18 +108,6 @@ export class StreetViewComponent implements OnInit {
   }
 
   private handlePositionChanged() {
-    if (!this.currentDestination) {
-      return;
-    }
-
-    let destinationLocation: MapLocation;
-    if (this.currentDestination.restaurant) {
-      destinationLocation = this.currentDestination.restaurant.location;
-    } else if (this.currentDestination.residence) {
-      destinationLocation = this.currentDestination.residence.location;
-    } else {
-      return;
-    }
 
     const location = <MapLocation>{
       lat: this.streetView.getPosition().lat(),
@@ -126,9 +115,24 @@ export class StreetViewComponent implements OnInit {
     };
 
     this.gameService.updateLocation(location);
+    if (!this.currentDestination) {
+      return;
+    }
 
-    this.withinRangeOfCollection = this.isWithinRange(location, destinationLocation, this.WITHIN_RANGE);
-    this.gameService.canCollect$.next(this.withinRangeOfCollection);
+    let destinationLocation: MapLocation;
+    if (this.currentDestination.restaurant) {
+      destinationLocation = this.currentDestination.restaurant.location;
+      this.withinRangeOfCollection = this.isWithinRange(location, destinationLocation, this.WITHIN_RANGE);
+      this.gameService.canCollect$.next(this.withinRangeOfCollection);
+    } else if (this.currentDestination.residence) {
+      console.log('residence: pos changed');
+      destinationLocation = this.currentDestination.residence.location;
+      console.log(destinationLocation);
+      this.withinRangeOfDelivery = this.isWithinRange(location, destinationLocation, this.WITHIN_RANGE);
+      this.gameService.canDeliver$.next(this.withinRangeOfDelivery);
+    } else {
+      return;
+    }
   }
 
   private isWithinRange(pos1: MapLocation, pos2: MapLocation, distance: number): boolean {

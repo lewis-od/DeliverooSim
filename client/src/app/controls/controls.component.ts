@@ -12,6 +12,7 @@ export class ControlsComponent implements OnInit {
   public gameModeEnum = GameMode;
   public gameMode: GameMode;
   public canCollect: boolean;
+  public canDeliver: boolean;
 
   constructor(private gameService: GameService) { }
 
@@ -19,6 +20,8 @@ export class ControlsComponent implements OnInit {
     this.gameService.gameMode$.subscribe(mode => this.gameMode = mode);
 
     this.gameService.canCollect$.subscribe(canCollect => this.canCollect = canCollect);
+
+    this.gameService.canDeliver$.subscribe(canDeliver => this.canDeliver = canDeliver);
   }
 
   public async onFindOrderClick(event: any) {
@@ -27,6 +30,10 @@ export class ControlsComponent implements OnInit {
 
   public async onCollectOrderClick(event: any) {
     await this.gameService.collectOrder();
+  }
+
+  public async onDeliverOrderClick(event: any) {
+    await this.gameService.deliverOrder();
   }
 
 }

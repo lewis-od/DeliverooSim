@@ -15,7 +15,9 @@ export class GameService {
   public gameMode$ = new BehaviorSubject<GameMode>(GameMode.NONE);
   public init$ = new BehaviorSubject<boolean>(false);
   public canCollect$ = new BehaviorSubject<boolean>(false);
+  public canDeliver$ = new BehaviorSubject<boolean>(false);
   public location$ = new BehaviorSubject<MapLocation>(null);
+  public score$ = new BehaviorSubject<number>(0);
 
   constructor(private apiService: ApiService) {
 
@@ -29,7 +31,7 @@ export class GameService {
   public async findOrder() {
     console.log('find order');
     this.gameMode$.next(GameMode.PICKUP);
-    this.destination$.next(<Destination>{});
+    this.destination$.next(<Destination>{loading: true});
     const restaurant = await this.apiService.getRestaurant(this.seedLocation);
     const destination = <Destination> {
       type: 'Restaurant',
@@ -57,6 +59,14 @@ export class GameService {
       residence: residence
     }
     this.destination$.next(destination);
+  }
+
+  public async deliverOrder() {
+    console.log('deliver order');
+    this.gameMode$.next(GameMode.NONE);
+    this.destination$.next(<Destination>{ });
+    const score = this.score$.getValue() + 1;
+    this.score$.next(score);
   }
 
   public updateLocation(location: MapLocation) {
