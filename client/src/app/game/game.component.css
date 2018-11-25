@@ -1,4 +1,4 @@
-.right-container, app-street-view {
+.right-container, .left-container {
   display: inline-block;
   vertical-align: top;
 }
@@ -7,6 +7,6 @@ app-mini-map, app-google-sign-in, app-location-info {
   display: block;
 }
 
-app-controls {
+app-controls, app-street-view {
   display: block;
 }

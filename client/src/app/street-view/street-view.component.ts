@@ -17,7 +17,7 @@ export class StreetViewComponent implements OnInit {
   public streetView: google.maps.StreetViewPanorama;
   public currentDestination: Destination;
 
-  private WITHIN_RANGE = 200;
+  private WITHIN_RANGE = 40;
   public withinRangeOfCollection = false;
   public withinRangeOfDelivery = false;
   public marker: any;
@@ -41,10 +41,14 @@ export class StreetViewComponent implements OnInit {
     this.gameService.cheat$.subscribe(() => {
       if (this.currentDestination) {
         if (this.currentDestination.restaurant) {
-
+          const restaurant = this.currentDestination.restaurant;
+          this.streetView.setPosition(new google.maps.LatLng(restaurant.location.lat, restaurant.location.lng));
+        } else if(this.currentDestination.residence) {
+          const residence = this.currentDestination.residence;
+          this.streetView.setPosition(new google.maps.LatLng(residence.location.lat, residence.location.lng));
         }
       }
-    })
+    });
   }
 
   // Set destination marker of street view
@@ -74,8 +78,6 @@ export class StreetViewComponent implements OnInit {
         map: this.streetView,
         icon: restaurantMarkerIcon,
       });
-      this.streetView.setPosition(new google.maps.LatLng(restaurant.location.lat, restaurant.location.lng));
-      this.gameService.location$.next(restaurant.location);
     } else if (destination.type === 'Residence') {
       console.log('adding residence marker');
 
@@ -96,8 +98,7 @@ export class StreetViewComponent implements OnInit {
         icon: residenceMarkerIcon,
       });
 
-      this.streetView.setPosition(new google.maps.LatLng(residence.location.lat, residence.location.lng));
-      this.gameService.location$.next(residence.location);
+      // this.gameService.location$.next(residence.location);
     }
   }
 
