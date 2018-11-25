@@ -9,6 +9,7 @@ import { ControlsComponent } from './controls/controls.component';
 import { LocationInfoComponent } from './location-info/location-info.component';
 import { MiniMapComponent } from './mini-map/mini-map.component';
 import { GoogleSignInComponent } from './google-sign-in/google-sign-in.component';
+import { ScoreboardComponent } from './scoreboard/scoreboard.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { GoogleSignInComponent } from './google-sign-in/google-sign-in.component
     ControlsComponent,
     LocationInfoComponent,
     MiniMapComponent,
-    GoogleSignInComponent
+    GoogleSignInComponent,
+    ScoreboardComponent
   ],
   imports: [
     BrowserModule,
