@@ -7,6 +7,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { GameComponent } from './game/game.component';
 import { ControlsComponent } from './controls/controls.component';
 import { LocationInfoComponent } from './location-info/location-info.component';
+import { MiniMapComponent } from './mini-map/mini-map.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { LocationInfoComponent } from './location-info/location-info.component';
     StreetViewComponent,
     GameComponent,
     ControlsComponent,
-    LocationInfoComponent
+    LocationInfoComponent,
+    MiniMapComponent
   ],
   imports: [
     BrowserModule,
