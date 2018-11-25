@@ -57,7 +57,7 @@ export class MiniMapComponent implements OnInit {
   private updateDestination(destination: Destination) {
     if (!this.destinationMarker) {
       this.destinationMarker = new google.maps.Marker({
-        position: {lat: 0.0, lng: 0.0},
+        position: {lat: 52.9531876, lng: -1.1492799},
         map: this.miniMap
       });
     }
