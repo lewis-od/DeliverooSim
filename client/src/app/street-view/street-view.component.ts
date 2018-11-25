@@ -60,7 +60,6 @@ export class StreetViewComponent implements OnInit {
 
       this.marker = new google.maps.Marker({
         position: new google.maps.LatLng(restaurant.location.lat, restaurant.location.lng),
-        //position: new google.maps.LatLng(52.9531876, -1.1492799),
         map: this.streetView,
         icon: restaurantMarkerIcon,
       });

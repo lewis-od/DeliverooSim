@@ -28,6 +28,7 @@ export class GameService {
   public async findOrder() {
     console.log('find order');
     this.gameMode$.next(GameMode.PICKUP);
+    this.destination$.next(<Destination>{});
     const restaurant = await this.apiService.getRestaurant(this.seedLocation);
     const destination = <Destination> {
       type: 'Restaurant',
@@ -57,4 +58,3 @@ export class GameService {
 
   }
 }
-

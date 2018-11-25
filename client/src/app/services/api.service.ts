@@ -14,21 +14,11 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   public getRestaurant(location: MapLocation): Restaurant {
-    // return this.get<Restaurant>('/restaurant', location).ToPromise();
-    return <Restaurant>{
-      image: 'https://maps.googleapis.com/maps/api/place/photo?key=AIzaSyCzR4NI8Bfo-Vbj_X5wOK7uBhxAyKPwtZ4&photoreference=CmRaAAAAOB58PcgLuKw_824yU6GeyM0LERQ0DR59FXmDXGGkRMUYJOev_WXbHszCIiHl-_KPlZrUvVG8p3Mm8vNkxGwA9ptYRO8HJl7-Ld0rWYa8rpOkFc449uxcBojAJlg_v-ZoEhAsbN0YpLd_Gay_yIusv2IfGhSUycu5-DI6PrzxAZP9fRziwAdbXw&maxwidth=250',
-      location: {
-        lat: this.notts.lat,
-        lng: this.notts.lng
-      },
-      name: 'Demo Restaurant'
-    };
+    return this.get<Restaurant>('/restaurant', location).toPromise();
   }
 
   public getResidence(location: MapLocation): Residence {
-    return <Residence>{
-
-    };
+    return this.get<Residence>('/destination', location).toPromise();
   }
 
   private get<T>(endpoint: string, queryParams: any): Observable<any> {

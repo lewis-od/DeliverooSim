@@ -15,14 +15,14 @@ def index():
 @bp.route('/restaurant')
 def restaurant():
     latitude = request.args.get('lat')
-    longitude = request.args.get('long')
+    longitude = request.args.get('lng')
 
     location = "{},{}".format(latitude, longitude)
 
     maps = googlemaps.Client(key=maps_key)
     response = maps.places('restaurant', location=location)
     if response['status'] != "OK":
-        raise Exception("Google maps error")
+        raise Exception("Google maps error: status {}".format(response['status']))
 
     results = response['results']
     restaurant_dict = random.choice(results)
@@ -39,11 +39,11 @@ def restaurant():
 
     response = maps.place(restaurant_id)
     if response['status'] != 'OK':
-        raise Exception("Google maps error")
+        raise Exception("Google maps error: status {}".format(response['status']))
 
     restaurant_dict = response['result']
 
-    food_url = "No image found."
+    food_url = None
     for photo_info in restaurant_dict['photos']:
         reference = photo_info['photo_reference']
         img_url = ("https://maps.googleapis.com/maps/api/place/photo?key={}"
@@ -60,6 +60,8 @@ def restaurant():
         if 'food' in keywords:
             food_url = img_url
             break
+    if food_url is None:
+        food_url = "https://thumbs.dreamstime.com/z/man-eating-food-4703099.jpg"
     restaurant = Restaurant(place_id=restaurant_id, image_url=food_url).create()
 
     res_dict = {
@@ -72,7 +74,7 @@ def restaurant():
 @bp.route('/destination')
 def destination():
     lat = request.args.get('lat')
-    long = request.args.get('long')
+    long = request.args.get('lng')
 
     r = 3950.0 # Radius of Earth in miles
     d = 1.0 # Max distance from restaurant
@@ -103,4 +105,4 @@ def destination():
         response = maps.reverse_geocode(location_str)
         address = response[0]['formatted_address']
 
-    return jsonify({'lat': lat, 'long': long, 'address': address})
+    return jsonify({'lat': lat, 'lng': long, 'address': address})
