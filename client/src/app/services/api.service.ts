@@ -13,11 +13,11 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  public getRestaurant(location: MapLocation): Restaurant {
+  public getRestaurant(location: MapLocation): Promise<Restaurant> {
     return this.get<Restaurant>('/restaurant', location).toPromise();
   }
 
-  public getResidence(location: MapLocation): Residence {
+  public getResidence(location: MapLocation): Promise<Residence> {
     return this.get<Residence>('/destination', location).toPromise();
   }
 
