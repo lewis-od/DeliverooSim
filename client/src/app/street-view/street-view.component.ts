@@ -19,6 +19,7 @@ export class StreetViewComponent implements OnInit {
 
   private WITHIN_RANGE = 20;
   public withinRangeOfCollection = false;
+  public marker: any;
 
   constructor(private gameService: GameService) { }
 
@@ -42,10 +43,11 @@ export class StreetViewComponent implements OnInit {
     }
 
     this.currentDestination = destination;
+    this.clearMarker();
 
     if (destination.type === 'Restaurant') {
       // set marker
-      console.log('adding marker');
+      console.log('adding destination marker');
       const restaurant = destination.restaurant;
 
       const restaurantMarkerIcon = {
@@ -56,18 +58,40 @@ export class StreetViewComponent implements OnInit {
         anchor: new google.maps.Point(128, 128),
       };
 
-      console.log(restaurant.location.lat);
-      const marker = new google.maps.Marker({
+      this.marker = new google.maps.Marker({
         position: new google.maps.LatLng(restaurant.location.lat, restaurant.location.lng),
         //position: new google.maps.LatLng(52.9531876, -1.1492799),
         map: this.streetView,
         icon: restaurantMarkerIcon,
-        // icon: 'https://chart.apis.google.com/chart?chst=d_map_pin_icon&chld=cafe|FFFF00',
-        title: 'Cafe'
       });
+    } else if (destination.type === 'Residence') {
+      console.log('adding residence marker');
+
+      const residence = destination.residence;
+      const residenceMarkerIcon = {
+        url: '/assets/house.png',
+        size: new google.maps.Size(256, 256),
+        scaledSize: new google.maps.Size(256, 256),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(128, 128),
+      };
+
+      this.marker = new google.maps.Marker({
+        position: new google.maps.LatLng(residence.location.lat, residence.location.lng),
+        //position: new google.maps.LatLng(52.9531876, -1.1492799),
+        map: this.streetView,
+        icon: residenceMarkerIcon,
+      });
+
+
+
     }
 
 
+  }
+
+  private clearMarker() {
+    this.marker.setMap(null);
   }
 
   private initStreetView() {
@@ -99,6 +123,7 @@ export class StreetViewComponent implements OnInit {
       lat: this.streetView.getPosition().lat(),
       lng: this.streetView.getPosition().lng()
     };
+
     this.withinRangeOfCollection = this.isWithinRange(location, destinationLocation, this.WITHIN_RANGE);
     this.gameService.canCollect$.next(this.withinRangeOfCollection);
   }

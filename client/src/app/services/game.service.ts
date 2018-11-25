@@ -41,6 +41,18 @@ export class GameService {
     console.log('collect order');
     this.gameMode$.next(GameMode.DELIVER);
     // get residence
+    const residence = <Residence>{
+      address: '82 Middleton Blvd, Nottingham NG8 1AA, UK',
+      location: <MapLocation> {
+        lat: 52.9533602,
+        lng: -1.1895487
+      }
+    };
+    const destination = <Destination>{
+      type: 'Residence',
+      residence: residence
+    }
+    this.destination$.next(destination);
 
 
   }
