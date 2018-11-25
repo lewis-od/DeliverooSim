@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit} from '@angular/core';
 import {GameService} from './services/game.service';
 import { } from '@types/googlemaps';
 import { } from '@types/gapi';
@@ -11,7 +11,7 @@ import { } from '@types/gapi';
 export class AppComponent implements OnInit, AfterViewInit {
   title = 'app';
 
-  constructor(private gameService: GameService) {
+  constructor(private gameService: GameService, private elementRef: ElementRef) {
   }
 
   async ngOnInit() {
@@ -35,6 +35,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     script2.onload = async () => await this.initGoogleSignIn()
     document.body.appendChild(script2);
     // document.body.removeChild(script);
+
+    this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = '#ddd';
 
   }
 
