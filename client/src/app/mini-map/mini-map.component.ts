@@ -50,6 +50,7 @@ export class MiniMapComponent implements OnInit {
 
   private updateLocation(location: MapLocation) {
     this.currentLocationMarker.setPosition(location);
+    this.miniMap.setCenter(location);
   }
 
   private updateDestination(destination: Destination) {
@@ -68,24 +69,26 @@ export class MiniMapComponent implements OnInit {
     };
 
     if (destination.type == 'Restaurant') {
-      console.log("Adding restaurant to mini map");
       markerIcon.url = '/assets/target.png';
       const restaurant = <Restaurant>destination.restaurant;
       console.log(restaurant.location);
-      this.destinationMarker.setPosition(
-        new google.maps.LatLng(restaurant.location.lat, restaurant.location.lng)
-      );
+      this.destinationMarker.setPosition(restaurant.location);
     } else if (destination.type == 'Residence') {
-      console.log("Adding residence marker to mini map");
       markerIcon.url = '/assets/house.png';
       const residence = <Residence> destination.residence;
-      this.destinationMarker.setPosition(
-        new google.maps.LatLng(residence.location.lat, residence.location.lng)
-      );
+      this.destinationMarker.setPosition(residence.location);
     } else {
       console.log("Problem!!");
     }
     this.destinationMarker.setIcon(markerIcon);
+    this.centreMiniMap();
+  }
+
+  private centreMiniMap() {
+    const currentLocation = this.currentLocationMarker.getPosition();
+    let bounds = new google.maps.LatLngBounds(currentLocation, currentLocation);
+    bounds.extend(this.destinationMarker.getPosition());
+    this.miniMap.fitBounds(bounds);
   }
 
 }
