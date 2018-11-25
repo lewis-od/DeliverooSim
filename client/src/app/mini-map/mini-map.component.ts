@@ -50,13 +50,14 @@ export class MiniMapComponent implements OnInit {
 
   private updateLocation(location: MapLocation) {
     this.currentLocationMarker.setPosition(location);
-    this.miniMap.setCenter(location);
+    // this.miniMap.setCenter(location);
+    this.centreMiniMap();
   }
 
   private updateDestination(destination: Destination) {
     if (!this.destinationMarker) {
       this.destinationMarker = new google.maps.Marker({
-        position: {lat: 0.0, lng: 0.0},
+        position: {lat: 52.9531876, lng: -1.1492799},
         map: this.miniMap
       });
     }
@@ -85,10 +86,12 @@ export class MiniMapComponent implements OnInit {
   }
 
   private centreMiniMap() {
-    const currentLocation = this.currentLocationMarker.getPosition();
-    let bounds = new google.maps.LatLngBounds(currentLocation, currentLocation);
-    bounds.extend(this.destinationMarker.getPosition());
-    this.miniMap.fitBounds(bounds);
+    if (this.destinationMarker){
+      const currentLocation = this.currentLocationMarker.getPosition();
+      let bounds = new google.maps.LatLngBounds(currentLocation, currentLocation);
+      bounds.extend(this.destinationMarker.getPosition());
+      this.miniMap.fitBounds(bounds, {bottom: 20, left: 20, right: 20, top: 20});
+    }
   }
 
 }

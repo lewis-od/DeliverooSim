@@ -105,6 +105,11 @@ def destination():
         response = maps.reverse_geocode(location_str)
         address = response[0]['formatted_address']
 
+        response = maps.geocode(address)
+        location = response[0]['geometry']['location']
+        lat_new = location['lat']
+        long_new = location['lng']
+
     return jsonify({'location': {'lat': lat_new, 'lng': long_new}, 'address': address})
 
 @bp.route('/save', methods=('POST',))
