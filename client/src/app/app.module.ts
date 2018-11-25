@@ -8,6 +8,7 @@ import { GameComponent } from './game/game.component';
 import { ControlsComponent } from './controls/controls.component';
 import { LocationInfoComponent } from './location-info/location-info.component';
 import { MiniMapComponent } from './mini-map/mini-map.component';
+import { GoogleSignInComponent } from './google-sign-in/google-sign-in.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { MiniMapComponent } from './mini-map/mini-map.component';
     GameComponent,
     ControlsComponent,
     LocationInfoComponent,
-    MiniMapComponent
+    MiniMapComponent,
+    GoogleSignInComponent
   ],
   imports: [
     BrowserModule,

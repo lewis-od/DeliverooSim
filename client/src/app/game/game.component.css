@@ -1,6 +1,10 @@
-app-street-view, app-location-info {
+.right-container, app-street-view {
   display: inline-block;
   vertical-align: top;
+}
+
+app-mini-map, app-google-sign-in, app-location-info {
+  display: block;
 }
 
 app-controls {

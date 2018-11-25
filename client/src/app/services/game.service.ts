@@ -18,6 +18,7 @@ export class GameService {
   public canDeliver$ = new BehaviorSubject<boolean>(false);
   public location$ = new BehaviorSubject<MapLocation>(null);
   public score$ = new BehaviorSubject<number>(0);
+  public googleSignInLoaded$ = new BehaviorSubject<boolean>(false);
 
   constructor(private apiService: ApiService) {
 
