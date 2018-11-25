@@ -106,7 +106,7 @@ def destination():
         address = response[0]['formatted_address']
 
     return jsonify({'location': {'lat': lat_new, 'lng': long_new}, 'address': address})
-    
+
 @bp.route('/save', methods=('POST',))
 def save():
     try:
@@ -122,3 +122,10 @@ def save():
         return jsonify({"status": "OK"})
     except:
         return jsonify({"status": "ERROR"})
+
+@bp.route('/leaderboard')
+def leaderboard():
+    users = User.get_all()
+    users = sorted(users, key=lambda u: u.score)
+    leaders = users[0:4]
+    return jsonify([u.__dict__ for u in leaders])
