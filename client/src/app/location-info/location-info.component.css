@@ -57,3 +57,17 @@
   -webkit-transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
   transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
 }
+
+
+.info-container {
+  margin-top: 12px;
+  padding: 12px;
+  background-color: #eee;
+  border-radius: 4px;
+}
+
+.score {
+  color: #129c92;
+  font-weight: bold;
+  font-size: 20px;
+}

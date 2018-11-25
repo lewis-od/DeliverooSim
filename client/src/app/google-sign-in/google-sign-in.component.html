@@ -1,9 +1,11 @@
-<meta name="google-signin-client_id" content="765060563041-1rlmrm6i5hbhouel0bsndqdqskkrm5qf.apps.googleusercontent.com">
-<div *ngIf="!signedInAs">Sign in with Google to submit your score</div>
-<div *ngIf="signedInAs">Signed in as: {{ signedInAs }}</div>
-<!--<div class="g-signin2" data-onsuccess="onSignIn"></div>-->
-<div id="my-signin2"></div>
+<div class="signin-container">
+  <meta name="google-signin-client_id" content="765060563041-1rlmrm6i5hbhouel0bsndqdqskkrm5qf.apps.googleusercontent.com">
+  <div *ngIf="!signedInAs" class="mb-2">Sign in with Google to submit your score</div>
+  <div *ngIf="signedInAs" class="mb-2">Signed in as: {{ signedInAs }}</div>
+  <!--<div class="g-signin2" data-onsuccess="onSignIn"></div>-->
+  <div class="mb-2" id="my-signin2"></div>
 
-<form action="/#" #saveForm>
-  <input type="submit" value="Save score"/>
-</form>
+  <form action="/#" #saveForm>
+    <input type="submit" value="Save score"/>
+  </form>
+</div>

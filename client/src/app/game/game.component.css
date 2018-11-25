@@ -10,3 +10,16 @@ app-mini-map, app-google-sign-in, app-location-info {
 app-controls, app-street-view {
   display: block;
 }
+
+.header {
+  background-color: #00cdbe;
+  width: 100%;
+  color: white;
+  font-weight: bold;
+  font-size: 40px;
+}
+
+app-game {
+  background-color: #eee;
+
+}
