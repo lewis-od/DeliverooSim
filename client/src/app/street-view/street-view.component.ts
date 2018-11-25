@@ -26,7 +26,9 @@ export class StreetViewComponent implements OnInit {
   ngOnInit() {
 
     this.gameService.destination$.subscribe(destination => {
-      this.setDestination(destination);
+      if (destination) {
+        this.setDestination(destination);
+      }
     });
 
     this.gameService.init$.subscribe(init => {

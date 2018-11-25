@@ -14,7 +14,7 @@ export class LocationInfoComponent implements OnInit {
 
   ngOnInit() {
     this.gameService.destination$.subscribe(destination => {
-      if (Object.keys(destination).length === 0) {
+      if (destination && Object.keys(destination).length === 0) {
         this.isLoading = true;
       } else {
         this.isLoading = false;

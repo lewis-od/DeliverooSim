@@ -11,7 +11,7 @@ export class GameService {
   public seedLocation: MapLocation;
 
   // Observables
-  public destination$ = new Subject<Destination>();
+  public destination$ = new BehaviorSubject<Destination>(null);
   public gameMode$ = new BehaviorSubject<GameMode>(GameMode.NONE);
   public init$ = new BehaviorSubject<boolean>(false);
   public canCollect$ = new BehaviorSubject<boolean>(false);
@@ -42,13 +42,15 @@ export class GameService {
     console.log('collect order');
     this.gameMode$.next(GameMode.DELIVER);
     // get residence
-    const residence = <Residence>{
-      address: '82 Middleton Blvd, Nottingham NG8 1AA, UK',
-      location: <MapLocation> {
-        lat: 52.9533602,
-        lng: -1.1895487
-      }
-    };
+    // const residence = <Residence>{
+    //   address: '82 Middleton Blvd, Nottingham NG8 1AA, UK',
+    //   location: <MapLocation> {
+    //     lat: 52.9533602,
+    //     lng: -1.1895487
+    //   }
+    // };
+    const restaurantLocation = this.destination$.getValue().restaurant.location;
+    const residence = await this.apiService.getResidence(restaurantLocation);
     const destination = <Destination>{
       type: 'Residence',
       residence: residence
