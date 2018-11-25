@@ -12,7 +12,8 @@ export class ScoreboardComponent implements OnInit {
 
   constructor(private apiService: ApiService) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.scores = await this.apiService.getLeaderboard();
 
 
   }
