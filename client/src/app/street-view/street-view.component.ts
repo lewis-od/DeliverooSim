@@ -85,12 +85,12 @@ export class StreetViewComponent implements OnInit {
 
 
     }
-
-
   }
 
   private clearMarker() {
-    this.marker.setMap(null);
+    if (this.marker) {
+      this.marker.setMap(null);
+    }
   }
 
   private initStreetView() {

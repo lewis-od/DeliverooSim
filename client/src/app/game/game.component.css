@@ -1,0 +1,8 @@
+app-street-view, app-location-info {
+  display: inline-block;
+  vertical-align: top;
+}
+
+app-controls {
+  display: block;
+}
