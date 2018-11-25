@@ -65,6 +65,7 @@ export class StreetViewComponent implements OnInit {
         map: this.streetView,
         icon: restaurantMarkerIcon,
       });
+      this.streetView.setPosition(new google.maps.LatLng(restaurant.location.lat, restaurant.location.lng));
     } else if (destination.type === 'Residence') {
       console.log('adding residence marker');
 
@@ -77,6 +78,7 @@ export class StreetViewComponent implements OnInit {
         anchor: new google.maps.Point(128, 128),
       };
 
+      console.log(residence);
       this.marker = new google.maps.Marker({
         position: new google.maps.LatLng(residence.location.lat, residence.location.lng),
         //position: new google.maps.LatLng(52.9531876, -1.1492799),
@@ -84,8 +86,7 @@ export class StreetViewComponent implements OnInit {
         icon: residenceMarkerIcon,
       });
 
-
-
+      this.streetView.setPosition(new google.maps.LatLng(residence.location.lat, residence.location.lng));
     }
   }
 
