@@ -31,7 +31,7 @@ export class GoogleSignInComponent implements OnInit {
     this.saveForm.nativeElement.addEventListener("submit", () => {
       let formData = new FormData();
       formData.append('user_id', this.signedInAs);
-      formData.append('score', this.currentScore);
+      formData.append('score', '' + this.currentScore);
       this.apiService.post('/save', formData);
     }, false);
   }

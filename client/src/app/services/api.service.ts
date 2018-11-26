@@ -36,7 +36,7 @@ export class ApiService {
       .pipe(catchError(this.handleError));
   }
 
-  private post(endpoint: string, formData: FormData): Observable<any> {
+  public post(endpoint: string, formData: FormData) {
     this.http.post(this.getUrl(endpoint), formData).subscribe((res) => {
       console.log(res);
     });
